@@ -1,9 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
+import sys
 import re
-import numpy as np
-import matplotlib.pyplot as plt
 import itertools
+import numpy as np
+
 
 class DiceSet:
     """Class containing dice request and results"""
@@ -20,7 +21,7 @@ class DiceSet:
         diceRegex = r"(?i)^(?P<die>(?P<dCount>\d+)d(?P<dType>\d+))?$"
         modRegex = r"(?i)^(?P<mod>[\+\-]\d+)?$"
         
-        for substring in self.cmd.split():          
+        for substring in self.cmd:          
             #let's first evaluate the rolls 
             diceMatch = re.match(diceRegex, substring)
             modMatch = re.match(modRegex, substring)
@@ -73,7 +74,7 @@ class DiceSet:
         """Accessor for dice set stats"""
         print("Min:\t\t{}\nMedian:\t\t{}\nMax:\t\t{}".format(self.stats["min"], self.stats["median"],self.stats["max"]))
 
-d = DiceSet(input())
+d = DiceSet(sys.argv[1:])
 
 d.getVerboseResult()
 d.getStats()
